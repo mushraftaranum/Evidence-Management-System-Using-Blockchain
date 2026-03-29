@@ -40,6 +40,6 @@ This system is useful for:
 
 ## 👨‍💻 Developed By
 
-Mushraf Taranum
-Anisa Unnisa
+Mushraf Taranum,
+Anisa Unnisa,
 Nausheen
