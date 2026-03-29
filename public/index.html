@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TrustChain‑EMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="auth-container">
+
+        <h1>TrustChain‑EMS</h1>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" id="login-tab">Login</button>
+            <button class="tab-btn" id="register-tab">Register</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="form-container" id="login-form">
+            <h2>Login</h2>
+
+            <div class="form-group">
+                <label>Ethereum Address</label>
+                <input type="text" id="login-address" readonly>
+            </div>
+
+            <div class="form-group">
+                <button id="connect-metamask" class="btn primary-btn">
+                    Connect MetaMask
+                </button>
+            </div>
+
+            <div class="form-group">
+                <button id="login-btn" class="btn success-btn" disabled>
+                    Login
+                </button>
+            </div>
+
+            <div id="login-message" class="message"></div>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div class="form-container hidden" id="register-form">
+            <h2>Register</h2>
+
+            <div class="form-group">
+                <label>Ethereum Address</label>
+                <input type="text" id="register-address" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="fullname">
+            </div>
+
+            <div class="form-group">
+                <label>Role</label>
+                <select id="role">
+                    <option value="">Select Role</option>
+                    <option value="Police">Police</option>
+                    <option value="Court">Court</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button id="register-connect-metamask" class="btn primary-btn">
+                    Connect MetaMask
+                </button>
+            </div>
+
+            <div class="form-group">
+                <button id="register-btn" class="btn success-btn" disabled>
+                    Register
+                </button>
+            </div>
+
+            <div id="register-message" class="message"></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Web3 -->
+<script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+
+<!-- Main JS -->
+<script src="app.js"></script>
+
+<!-- Small UI Script -->
+<script>
+    // Tab switching
+    const loginTab = document.getElementById("login-tab");
+    const registerTab = document.getElementById("register-tab");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+
+    loginTab.addEventListener("click", () => {
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+        loginForm.classList.remove("hidden");
+        registerForm.classList.add("hidden");
+    });
+
+    registerTab.addEventListener("click", () => {
+        registerTab.classList.add("active");
+        loginTab.classList.remove("active");
+        registerForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+    });
+
+    // Button bindings
+    document.getElementById("connect-metamask")
+        .addEventListener("click", connectMetaMask);
+
+    document.getElementById("register-connect-metamask")
+        .addEventListener("click", connectMetaMask);
+
+    document.getElementById("login-btn")
+        .addEventListener("click", login);
+
+    document.getElementById("register-btn")
+        .addEventListener("click", register);
+</script>
+
+</body>
+</html>

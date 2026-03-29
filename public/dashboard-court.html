@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Court Dashboard - TrustChain-EMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Web3 -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <header>
+        <h1>TrustChain-EMS</h1>
+        <div class="user-info">
+            <span id="user-name"></span>
+            <span id="user-role">Court</span>
+            <button id="logout-btn" class="btn">Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-content">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button id="verify-evidence-nav" class="nav-btn active">
+                Verify Evidence
+            </button>
+            <button id="browse-evidence-nav" class="nav-btn">
+                Browse Evidence
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Verify Section -->
+            <div id="verify-evidence-section" class="dashboard-section">
+                <h2>Verify Evidence</h2>
+
+                <div class="form-group">
+                    <label>Evidence ID:</label>
+                    <input type="text" id="verify-evidence-id" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Evidence Password:</label>
+                    <input type="password" id="verify-password" required>
+                </div>
+
+                <div class="form-actions">
+                    <button id="verify-btn" class="btn primary-btn">
+                        Verify
+                    </button>
+                </div>
+
+                <div id="verification-message" class="message"></div>
+
+                <div id="verification-result" class="hidden">
+
+                    <h3>Verification Result</h3>
+
+                    <p><strong>ID:</strong> <span id="result-id"></span></p>
+                    <p><strong>Case:</strong> <span id="result-case"></span></p>
+                    <p><strong>Location:</strong> <span id="result-location"></span></p>
+                    <p><strong>Description:</strong> <span id="result-description"></span></p>
+                    <p><strong>Type:</strong> <span id="result-type"></span></p>
+                    <p><strong>Officer:</strong> <span id="result-officer"></span></p>
+                    <p><strong>Timestamp:</strong> <span id="result-timestamp"></span></p>
+                    <p><strong>Status:</strong> <span id="result-status"></span></p>
+
+                    <div id="evidence-preview"></div>
+
+                    <button id="download-evidence" class="btn success-btn">
+                        Download Evidence
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Browse Section -->
+            <div id="browse-evidence-section" class="dashboard-section hidden">
+                <h2>Browse Evidence</h2>
+                <div id="evidence-list"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Court JS -->
+<script src="court-dashboard.js"></script>
+
+<script>
+// Basic login protection
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = JSON.parse(localStorage.getItem("blockchainEvidenceUser"));
+
+    if (!user) {
+        alert("Please login first");
+        window.location.href = "index.html";
+        return;
+    }
+
+    document.getElementById("user-name").innerText = user.name;
+    document.getElementById("user-role").innerText = user.role;
+
+    // Logout
+    document.getElementById("logout-btn").addEventListener("click", function () {
+        localStorage.removeItem("blockchainEvidenceUser");
+        window.location.href = "index.html";
+    });
+
+    // Navigation toggle
+    document.getElementById("verify-evidence-nav").addEventListener("click", function () {
+        document.getElementById("verify-evidence-section").classList.remove("hidden");
+        document.getElementById("browse-evidence-section").classList.add("hidden");
+    });
+
+    document.getElementById("browse-evidence-nav").addEventListener("click", function () {
+        document.getElementById("verify-evidence-section").classList.add("hidden");
+        document.getElementById("browse-evidence-section").classList.remove("hidden");
+    });
+
+});
+</script>
+
+</body>
+</html>
